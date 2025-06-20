@@ -8,6 +8,31 @@
     </div>
     @endif
 
+    @if(session('error'))
+    <div
+        class="mb-4 p-3 rounded bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+        role="error">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    {{-- 🎁 Streak Reward Card --}}
+    @if ($nextClaim)
+        <div class="max-w-xl mx-auto mt-6 mb-10">
+            <div class="bg-yellow-50 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-800 rounded-xl shadow p-5 text-center">
+                <h2 class="text-2xl font-bold text-yellow-700 dark:text-yellow-300 mb-3">🎉 مكافأة سلسلة الحضور!</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-2">لقد وصلت إلى <strong>{{ $nextClaim['days'] }} أيام</strong>!</p>
+                <div class="flex justify-center items-center text-yellow-500 text-3xl font-bold mb-4 gap-1">
+                    {{ $nextClaim['reward'] }} <span>💎</span>
+                </div>
+                <form method="POST" action="{{ route('streak.claim', $nextClaim['days']) }}">
+                    @csrf
+                    <button class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 px-6 rounded-md transition">استلام المكافأة</button>
+                </form>
+            </div>
+        </div>
+    @endif
+
    <div class="py-12 rtl text-right">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Leaderboard -->

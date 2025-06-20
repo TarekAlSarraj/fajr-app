@@ -1,6 +1,30 @@
 <x-app-layout>
     <h1 style="font-size:60px" class="text-white text-center">🛒 المتجر</h1>
 
+    @if(session('success'))
+    <div
+        class="mb-4 p-3 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+        role="success">
+        {{ session('success') }}
+    </div>
+    @endif
+    
+    @if(session('message'))
+    <div
+        class="mb-4 p-3 rounded bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+        role="alert">
+        {{ session('message') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div
+        class="mb-4 p-3 rounded bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+        role="error">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div class="max-w-4xl mx-auto p-4 space-y-8">
         @foreach ($itemsByCategory as $category => $group)
             <div>
@@ -46,7 +70,7 @@
                                     @else
                                         <span class="text-gray-400 text-sm">
                                             @if ($item->locked_until)
-                                                متاح في {{ $item->locked_until->translatedFormat('Y-m-d H:i') }}
+                                                مغلق حتى {{ $item->locked_until->translatedFormat('Y-m-d H:i') }}
                                             @else
                                                 تم الشراء ✅
                                             @endif

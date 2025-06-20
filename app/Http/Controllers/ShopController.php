@@ -75,17 +75,17 @@ class ShopController extends Controller
 
         // Check if unique and already bought
         if ($item->is_unique && $lastPurchase) {
-            return back()->with('error', 'You can only purchase this item once.');
+            return back()->with('error', 'لا يمكنك شراء هذا الخيار أكثر من مرّة');
         }
 
         // Check locked_until directly instead of recalculating
         if ($lastPurchase && $lastPurchase->locked_until && now()->lt($lastPurchase->locked_until)) {
-            return back()->with('error', 'You need to wait before buying this item again.');
+            return back()->with('error', 'عليك الانتظار حتى ' . $lastPurchase->locked_until->translatedFormat('Y-m-d H:i'));
         }
 
         // Check for enough gems
         if ($user->gems < $item->price_in_gems) {
-            return back()->with('error', 'Not enough gems.');
+            return back()->with('error', 'لا تمتلك جواهر كافية لشراء هذا الخيار.');
         }
 
         DB::transaction(function () use ($user, $item) {
@@ -99,7 +99,7 @@ class ShopController extends Controller
             ]);
         });
 
-        return back()->with('success', 'Item purchased successfully!');
+        return back()->with('success', 'تم الشراء بنجاح!');
     }
 
     public function freezeStreak()

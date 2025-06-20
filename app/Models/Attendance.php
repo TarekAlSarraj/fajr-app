@@ -19,5 +19,10 @@ class Attendance extends Model
     {
         return $this->belongsTo(Event::class); // Replace YourClassModel with your actual Class model
     }
+
+     public function recitations()
+    {
+        return $this->hasMany(Recitation::class);
+    }
     
 }
