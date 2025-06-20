@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Attendance;
-use App\models\Event;
+use App\Modles\Attendance;
+use App\Models\Event;
 use Illuminate\Support\Carbon;
 use App\Models\User;
 use App\Services\AttendanceService;

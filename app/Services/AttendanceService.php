@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use App\models\User;
+use App\Models\User;
 
 class AttendanceService
 {
