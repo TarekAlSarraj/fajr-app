@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Modles\Attendance;
+use App\Models\Attendance;
 use App\Models\Event;
 use Illuminate\Support\Carbon;
 use App\Models\User;
@@ -70,12 +70,19 @@ public function submit(Request $request)
 }
 
 
-    public function showAttendanceForm()
+    public function showAttendanceForm($token)
     {
+        $user = auth()->user();
+
+        // Check if the logged-in user's token matches the token in the URL and it's not expired
+        if (!$user || $user->attendance_token !== $token || !$user->attendance_token_expires_at || now()->gt($user->attendance_token_expires_at)) {
+            abort(403, 'Unauthorized access to attendance form.');
+        }
+
         $events = Event::all();
         $surahs = config('surahs');
 
-        return view('user.attendance', compact('events', 'surahs'));
+        return view('user.attendance', compact('user', 'events', 'surahs'));
     }
 
     public function leaderboard()

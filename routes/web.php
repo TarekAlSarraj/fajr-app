@@ -31,8 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/attendance', [AttendanceController::class, 'showAttendanceForm'])->middleware(['auth', 'verified', EnsureUserHasRole::class.':user'])->name('attendance.form');
-    Route::post('/attendance', [AttendanceController::class, 'submit'])->name('attendance.submit');
+    Route::get('/attendance/{token}', [AttendanceController::class, 'showAttendanceForm'])->middleware(['auth', 'verified', EnsureUserHasRole::class.':user'])->name('attendance.form');
+    Route::get('/attendance', function () {
+        if (auth()->check()) {
+            return redirect()->route('attendance.form', ['token' => auth()->user()->attendance_token]);
+        }
+        return redirect()->route('login');
+    });
+    Route::post('/attendance/{token}', [AttendanceController::class, 'submit'])->name('attendance.submit');
 
     Route::get('user/leaderboard', [AttendanceController::class, 'leaderboard'])->name('leaderboard');
     Route::get('user/challenges', [ChallengeController::class, 'index'])->name('challenges');
