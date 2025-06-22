@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('attendance_token')->nullable();
-            $table->timestamp('attendance_token_expires_at')->nullable();
-
+            $table->dropColumn('attendance_token');
+            $table->dropColumn('attendance_token_expires_at');
         });
     }
 

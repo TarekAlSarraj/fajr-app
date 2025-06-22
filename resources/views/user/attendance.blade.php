@@ -15,7 +15,7 @@
         
         <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">تسجيل حضور وتسميع</h1>
         
-        <form method="POST" action="{{ route('attendance.submit', $user->attendance_token) }}" class="space-y-6">
+        <form method="POST" action="{{ route('attendance.submit') }}" class="space-y-6">
             @csrf
 
             {{-- Event selection --}}

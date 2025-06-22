@@ -70,14 +70,9 @@ public function submit(Request $request)
 }
 
 
-    public function showAttendanceForm($token)
+    public function showAttendanceForm()
     {
         $user = auth()->user();
-
-        // Check if the logged-in user's token matches the token in the URL and it's not expired
-        if (!$user || $user->attendance_token !== $token || !$user->attendance_token_expires_at || now()->gt($user->attendance_token_expires_at)) {
-            abort(403, 'Unauthorized access to attendance form.');
-        }
 
         $events = Event::all();
         $surahs = config('surahs');
