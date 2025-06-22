@@ -35,8 +35,9 @@
                     $totalAttendances = app(App\Services\AttendanceService::class)->getTotalAttendance($user->id);
                     $gems = $user->gems ?? 0; // Assuming you store gems count on user
                 @endphp
-
-                @include('components.status-bar', compact('streak', 'totalAttendances', 'gems'))
+                @if ($user->role == 'user')
+                    @include('components.status-bar', compact('streak', 'totalAttendances', 'gems'))
+                @endif
             @endauth
 
 

@@ -63,12 +63,12 @@
                     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mt-2">+ إضافة سورة أخرى</button>
             </div>
 
-            {{-- Arrived before 6:30 AM checkbox --}}
+            {{-- Arrived before 6:00 AM checkbox --}}
             <div class="flex items-center">
                 <input id="arrived_early" type="checkbox" name="arrived_early"
                     class="h-4 w-4 ml-2 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-indigo-400">
                 <label for="arrived_early" class="ml-2 block text-gray-700 dark:text-gray-300 text-sm">
-                    وصلت قبل الساعة 6:30 صباحًا
+                    وصلت قبل الساعة 6:00 صباحًا
                 </label>
             </div>
 

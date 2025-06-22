@@ -22,4 +22,21 @@ class UserChallenge extends Pivot
         'completed_at',
         'locked_until',
     ];
+
+    protected $casts = [
+        'completed_at' => 'datetime',
+        'locked_until' => 'date'
+    ];
+
+     // Define the user relationship
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+     // Define the challenge relationship
+    public function challenge()
+    {
+        return $this->belongsTo(Challenge::class);
+    }
 }

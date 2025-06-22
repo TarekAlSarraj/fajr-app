@@ -8,6 +8,10 @@ class Attendance extends Model
 {
     protected $fillable = ['user_id', 'event_id', 'attended_at'];
 
+    protected $casts = [
+        'attended_at' => 'datetime',
+    ];
+
     // Relationships
 
     public function user()
