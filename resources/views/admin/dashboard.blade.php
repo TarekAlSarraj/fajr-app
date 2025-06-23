@@ -44,7 +44,6 @@
                         <th class="px-4 py-3">الاسم</th>
                         <th class="px-4 py-3">نوع الموعد</th>
                         <th class="px-4 py-3">التاريخ</th>
-                        <th class="px-4 py-3">وصل مبكرًا</th>
                         <th class="px-4 py-3">التسميع</th>
                     </tr>
                 </thead>
@@ -54,13 +53,6 @@
                             <td class="px-4 py-2">{{ $attendance->user->name }}</td>
                             <td class="px-4 py-2">{{ $attendance->event->name }}</td>
                             <td class="px-4 py-2">{{ \Carbon\Carbon::parse($attendance->attended_at)->format('Y-m-d H:i') }}</td>
-                            <td class="px-4 py-2">
-                                @if($attendance->arrived_early)
-                                    <span class="inline-block px-2 py-1 text-xs font-medium rounded bg-green-100 text-white-800 dark:bg-green-900 dark:text-green-200">✅ نعم</span>
-                                @else
-                                    <span class="inline-block px-2 py-1 text-xs font-medium rounded bg-red-100 text-white-800 dark:bg-red-900 dark:text-red-200">❌ لا</span>
-                                @endif
-                            </td>
                             <td class="px-4 py-2">
                                 @forelse($attendance->recitations as $recitation)
                                     <div class="mb-1">📖 {{ $recitation->surah_name }} ({{ $recitation->from_verse }}-{{ $recitation->to_verse }})</div>
