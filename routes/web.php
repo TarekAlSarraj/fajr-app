@@ -39,7 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::post('user/challenges/{challenge}/submit', [ChallengeController::class, 'submit'])->name('challenges.submit');
     Route::get('user/shop', [ShopController::class, 'index'])->middleware(['auth', 'verified', EnsureUserHasRole::class.':user'])->name('shop');
     Route::post('user/shop/buy/{item}', [ShopController::class, 'buyItem'])->name('items.buy');
-    Route::post('user/shop/freeze/{item}', [ShopController::class, 'freezeStreak'])->name('streak.freeze');
 
     Route::post('/streak/claim/{days}', [UserDashboardController::class, 'claimReward'])->name('streak.claim');
 

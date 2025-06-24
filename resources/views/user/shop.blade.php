@@ -52,16 +52,9 @@
                                 <div class="flex justify-between items-center mt-2">
                                     <span class="text-yellow-400 font-semibold">{{ $item->price }} 💎</span>
 
-                                    {{-- Freeze Streak Special Button --}}
-                                    @if ($item->name === 'freeze streak')
-                                        <form method="POST" action="{{ route('streak.freeze') }}">
-                                            @csrf
-                                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">تجميد السلسلة</button>
-                                        </form>
-
-                                    {{-- Regular Buy Button --}}
-                                    @elseif ($item->can_buy)
-                                        <form method="POST" action="{{ route('items.buy', $item->id) }}">
+                                    {{-- Buy Button --}}
+                                    @if ($item->can_buy)
+                                        <form method="POST" action="{{route('items.buy', $item->id)}}">
                                             @csrf
                                             <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">شراء</button>
                                         </form>

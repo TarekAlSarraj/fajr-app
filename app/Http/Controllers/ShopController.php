@@ -89,6 +89,9 @@ class ShopController extends Controller
         }
 
         DB::transaction(function () use ($user, $item) {
+            if($item->name === 'Freeze Streak'){
+                $this->freezeStreak();
+            }
             $user->decrement('gems', $item->price_in_gems);
 
             Purchase::create([
@@ -102,7 +105,7 @@ class ShopController extends Controller
         return back()->with('success', 'تم الشراء بنجاح!');
     }
 
-    public function freezeStreak()
+    private function freezeStreak()
     {
         $user = auth()->user();
 

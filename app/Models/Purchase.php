@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
-    protected $fillable = ['user_id', 'item_id', 'purchased_at'];
-
-    protected $dates = ['locked_until'];
+    protected $fillable = ['user_id', 'item_id', 'purchased_at', 'locked_until'];
 
     /**
      * Get the attributes that should be cast.
