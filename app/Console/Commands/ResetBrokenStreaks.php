@@ -12,16 +12,20 @@ class ResetBrokenStreaks extends Command
 
     public function handle()
     {
-        $yesterday = now()->subDay()->startOfDay();
+        $today = now()->startOfDay();
 
-        User::whereDate('last_attendance_date', '<', $yesterday)
+        User::where(function ($query) use ($today) {
+                $query->whereNull('last_attendance_date')
+                    ->orWhereDate('last_attendance_date', '<', $today);
+            })
             ->where(function ($query) {
                 $query->whereNull('streak_frozen_until')
-                      ->orWhere('streak_frozen_until', '<', now());
+                    ->orWhere('streak_frozen_until', '<', now());
             })
             ->update(['current_streak' => 0]);
 
-        $this->info('Broken streaks reset.');
+        $this->info('Streaks reset for users who didn’t attend today.');
     }
+
 }
 
