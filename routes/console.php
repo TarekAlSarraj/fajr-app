@@ -12,4 +12,4 @@ Artisan::command('inspire', function () {
 
 
 
-Schedule::command(ResetBrokenStreaks::class)->dailyAt('23:02');
+Schedule::command(ResetBrokenStreaks::class)->everyMinute();
