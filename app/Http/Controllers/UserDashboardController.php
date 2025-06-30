@@ -8,25 +8,31 @@ class UserDashboardController extends Controller
 {
      
 
-    public function index()
-    {
+public function index()
+{
     $user = auth()->user();
 
     $currentStreak = $user->current_streak;
     $lastClaimed = $user->last_claimed_streak ?? 0;
     $milestones = config('streak_milestones.milestones');
-    // Only show reward if current streak is a milestone AND user hasn't claimed it yet
-    if (array_key_exists($currentStreak, $milestones) && $currentStreak > $lastClaimed) {
+
+    // Find all unclaimed milestone rewards the user is eligible for
+    $eligibleMilestones = array_filter(array_keys($milestones), function ($milestone) use ($currentStreak, $lastClaimed) {
+        return $milestone > $lastClaimed && $milestone <= $currentStreak;
+    });
+
+    // Pick the lowest eligible milestone to claim first
+    $nextClaim = null;
+    if (!empty($eligibleMilestones)) {
+        $nextMilestone = min($eligibleMilestones);
         $nextClaim = [
-            'days' => $currentStreak,
-            'reward' => $milestones[$currentStreak],
+            'days' => $nextMilestone,
+            'reward' => $milestones[$nextMilestone],
         ];
-    } else {
-        $nextClaim = null;
     }
 
     return view('user.dashboard', compact('user', 'nextClaim'));
-    }
+}
 
 public function claimReward($days)
 {
