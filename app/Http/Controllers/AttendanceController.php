@@ -85,8 +85,6 @@ public function submit(Request $request)
         $users = User::where('role', 'user')->with('attendances')->get();
 
         $leaderboard = $users->map(function ($user) {
-            // Get attendance dates in order
-            
             $total = app(AttendanceService::class)->getTotalAttendance($user->id);
 
             return [
@@ -97,11 +95,25 @@ public function submit(Request $request)
             ];
         });
 
-        // Sort leaderboard by total or streak
-        $leaderboard = $leaderboard->sortByDesc('streak')->values();
+        // Custom sort: total desc > streak desc > name asc
+        $leaderboard = $leaderboard->sort(function ($a, $b) {
+            // Compare total attendance
+            if ($a['total'] !== $b['total']) {
+                return $b['total'] <=> $a['total']; // Descending
+            }
+
+            // If totals are equal, compare streak
+            if ($a['streak'] !== $b['streak']) {
+                return $b['streak'] <=> $a['streak']; // Descending
+            }
+
+            // If streaks are also equal, compare names alphabetically
+            return strcmp($a['name'], $b['name']); // Ascending
+        })->values();
 
         return view('user/leaderboard', compact('leaderboard'));
     }
+
 
     public function updateStreakOnAttendance()
     {
