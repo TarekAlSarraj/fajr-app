@@ -24,9 +24,9 @@ public function submit(Request $request)
 
     // Time restriction: only between 6 AM - 10 AM
     $startTime = Carbon::today()->setHour(6);
-    $endTime = Carbon::today()->setHour(10);
+    $endTime = Carbon::today()->setTime(23, 59);
     if (!$now->between($startTime, $endTime)) {
-        return back()->with('message', 'يمكنك تسجيل الحضور بين الساعة 6 صباحًا و10 صباحًا فقط.');
+        return back()->with('message', 'يمكنك تسجيل الحضور بين الساعة 6 صباحًا و12 ليلاً فقط.');
     }
 
     // Prevent multiple attendance for same event same day
@@ -39,8 +39,22 @@ public function submit(Request $request)
         return back()->with('message', 'لقد قمت بالفعل بتسجيل الحضور لهذا الموعد اليوم.');
     }
 
-    // Determine gems reward, double if checkbox checked
-    $gemsReward = $request->boolean('arrived_early') ? 2 : 1;
+    $gemsReward = 0;
+
+     // Fajr prayer gems
+    if ($request->fajr_place === 'mosque') {
+        $gemsReward += 2;
+    } elseif ($request->fajr_place === 'home') {
+        $gemsReward += 1;
+    }
+
+     // Arrival time gems
+    if ($request->arrival_time === 'before_615') {
+        $gemsReward += 2;
+    } elseif ($request->arrival_time === 'before_700') {
+        $gemsReward += 1;
+    }
+
     // Start transaction
     DB::transaction(function () use ($user, $request, $now, $gemsReward) {
         // Create attendance

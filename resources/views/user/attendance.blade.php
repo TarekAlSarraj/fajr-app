@@ -63,14 +63,58 @@
                     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mt-2">+ إضافة سورة أخرى</button>
             </div>
 
-            {{-- Arrived before 6:00 AM checkbox --}}
-            <div class="flex items-center">
-                <input id="arrived_early" type="checkbox" name="arrived_early"
-                    class="h-4 w-4 ml-2 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-indigo-400">
-                <label for="arrived_early" class="ml-2 block text-gray-700 dark:text-gray-300 text-sm">
-                    وصلت قبل الساعة 6:00 صباحًا
-                </label>
+            {{-- Prayed Fajr - radio group --}}
+            <div class="mb-4">
+                <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">صلاة الفجر</label>
+                <div class="flex items-center">
+                    <input type="radio" id="fajr_mosque" name="fajr_place" value="mosque"
+                        class="h-4 w-4 ml-2 text-indigo-600 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="fajr_mosque" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        صلّيت الفجر في المسجد
+                    </label>
+                </div>
+                <div class="flex items-center">
+                    <input type="radio" id="fajr_home" name="fajr_place" value="home"
+                        class="h-4 w-4 ml-2 text-indigo-600 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="fajr_home" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        صلّيت الفجر حاضر
+                    </label>
+                </div>
+                <div class="flex items-center">
+                    <input type="radio" id="fajr_home" name="fajr_place" value="none"
+                        class="h-4 w-4 ml-2 text-indigo-600 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="fajr_home" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        صلّيت الفجر قضاء
+                    </label>
+                </div>
             </div>
+
+            {{-- Arrival time - radio group --}}
+            <div>
+                <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">وقت الوصول</label>
+                <div class="flex items-center">
+                    <input type="radio" id="arrived_615" name="arrival_time" value="before_615"
+                        class="h-4 w-4 ml-2 text-indigo-600 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="arrived_615" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        وصلت قبل الساعة 6:15 صباحًا
+                    </label>
+                </div>
+                <div class="flex items-center">
+                    <input type="radio" id="arrived_700" name="arrival_time" value="before_700"
+                        class="h-4 w-4 ml-2 text-indigo-600 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="arrived_700" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        وصلت قبل الساعة 7:00 صباحًا
+                    </label>
+                </div>
+                <div class="flex items-center">
+                    <input type="radio" id="arrived_late" name="arrival_time" value="after_700"
+                        class="h-4 w-4 ml-2 text-indigo-600 border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="arrived_late" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        وصلت بعد الساعة 7:00 صباحًا
+                    </label>
+                </div>
+            </div>
+
 
             <button type="submit"
                 class="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md shadow focus:outline-none focus:ring-2 focus:ring-indigo-500">
